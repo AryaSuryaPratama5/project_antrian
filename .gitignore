@@ -1,0 +1,18 @@
+# Laravel
+tumbas-laravel/vendor/
+tumbas-laravel/node_modules/
+tumbas-laravel/.env
+tumbas-laravel/storage/*.key
+tumbas-laravel/storage/framework/cache/data/*
+tumbas-laravel/storage/framework/sessions/*
+tumbas-laravel/storage/framework/views/*
+tumbas-laravel/storage/logs/*.log
+tumbas-laravel/public/storage
+tumbas-laravel/public/build
+tumbas-laravel/public/hot
+
+# Other
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

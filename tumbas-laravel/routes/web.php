@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminController;
 // ─── Halaman Pelanggan ───────────────────────────────────────────────
 Route::get('/', [MenuController::class, 'index'])->name('menu');
 Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+Route::get('/order/qris/{id}', [OrderController::class, 'qris'])->name('order.qris');
 Route::get('/order/track/{id}', [OrderController::class, 'track'])->name('order.track');
 
 // ─── Auth ─────────────────────────────────────────────────────────────

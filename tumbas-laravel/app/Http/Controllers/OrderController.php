@@ -70,6 +70,10 @@ class OrderController extends Controller
             'estimasi_menit' => $estimasi,
         ]);
 
+        if ($validated['metode_bayar'] !== 'Tunai') {
+            return redirect()->route('order.qris', ['id' => $order->id]);
+        }
+
         return redirect()->route('order.track', ['id' => $order->id]);
     }
 
@@ -77,5 +81,11 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         return view('tracking', compact('order'));
+    }
+
+    public function qris($id)
+    {
+        $order = Order::findOrFail($id);
+        return view('qris', compact('order'));
     }
 }

@@ -17,7 +17,13 @@ if(isset($_POST['proses'])){
             VALUES ('$meja', '$nama', '$jenis', '$detail', '$total', '$metode', '$status_bayar', '$status_pelayanan', NOW())";
     
     if(mysqli_query($conn, $sql)){
-        echo "<script>alert('Pesanan Terkirim! Mohon Tunggu.'); window.location.href='index.php';</script>";
+        $id_pesanan = mysqli_insert_id($conn);
+        if ($metode == 'Tunai') {
+            echo "<script>alert('Pesanan Terkirim! Silakan tunggu di meja Anda.'); window.location.href='index.php';</script>";
+        } else {
+            // Arahkan ke halaman QRIS untuk metode QRIS maupun Transfer
+            echo "<script>window.location.href='bayar_qris.php?id=$id_pesanan&total=$total';</script>";
+        }
     }
 }
 ?>

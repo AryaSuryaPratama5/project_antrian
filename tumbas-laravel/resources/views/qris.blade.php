@@ -247,6 +247,17 @@
             transform: scale(0.98);
             box-shadow: 0 2px 8px rgba(153, 27, 27, 0.2);
         }
+        .tracking-tip {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .tracking-tip a {
+            color: var(--brand-primary);
+            font-weight: 700;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -262,6 +273,10 @@
             <i class="fas fa-receipt me-1 opacity-75"></i> Pesanan #{{ str_pad($order->id, 4, '0', STR_PAD_LEFT) }} &nbsp;·&nbsp; <strong class="text-dark">{{ $order->nama_pelanggan }}</strong>
         </p>
     </header>
+    <p class="tracking-tip">
+        <i class="fas fa-clock me-1"></i>
+        Nomor pesanan Anda adalah <strong>#{{ str_pad($order->id, 4, '0', STR_PAD_LEFT) }}</strong>. Jika halaman tertutup, buka kembali <a href="{{ route('order.track', ['id' => $order->id]) }}">Lacak Pesanan</a>.
+    </p>
 
     <!-- Payment Box Content -->
     <div class="status-card">

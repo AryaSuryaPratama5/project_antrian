@@ -208,6 +208,50 @@
     /* Empty State */
     .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); display: none; }
     .empty-state i { font-size: 48px; color: #CBD5E1; margin-bottom: 16px; display: block; }
+
+    .track-card {
+        padding: 18px 20px;
+        background: linear-gradient(135deg, #fff7f5, #fef2f2);
+        border: 1px solid rgba(241, 190, 187, 0.7);
+        border-radius: 20px;
+        margin: 0 16px 18px;
+        box-shadow: 0 8px 15px rgba(153, 27, 27, 0.08);
+    }
+    .track-card-title {
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--brand-primary);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .track-input-group {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .track-input-group input {
+        flex: 1;
+    }
+    .track-button {
+        padding: 12px 18px;
+        border-radius: 14px;
+        border: none;
+        background: var(--brand-primary);
+        color: white;
+        cursor: pointer;
+        font-weight: 700;
+        transition: transform 0.2s ease;
+    }
+    .track-button:active {
+        transform: scale(0.98);
+    }
+    .track-note {
+        margin-top: 10px;
+        font-size: 12px;
+        color: var(--text-muted);
+    }
 </style>
 @endsection
 
@@ -243,6 +287,20 @@
             @endforeach
         </div>
     </div>
+
+    <section class="section-card track-card">
+        <div class="track-card-title">
+            <i class="fas fa-location-dot"></i>
+            Lacak Pesanan Anda
+        </div>
+        <div class="track-input-group">
+            <input type="number" id="trackOrderId" class="input-control" placeholder="Masukkan Nomor Pesanan" />
+            <button type="button" class="track-button" id="trackButton">
+                <i class="fas fa-search"></i> Lacak
+            </button>
+        </div>
+        <p class="track-note">Jika HP terputus atau halaman tertutup, ketik nomor pesanan untuk melihat status kembali.</p>
+    </section>
 
     <!-- EMPTY STATE -->
     <div class="empty-state" id="noResult">
@@ -373,8 +431,11 @@
     </div>
 </form>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
 const cart = {};
+let activeFilter = 'semua';
 
 const formatRupiah = (number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -489,6 +550,20 @@ function applyFilter() {
     });
     document.getElementById('noResult').style.display = visibleCount === 0 ? 'block' : 'none';
 }
+
+document.getElementById('trackButton').addEventListener('click', function() {
+    const orderId = document.getElementById('trackOrderId').value.trim();
+    if (!orderId) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Masukkan nomor pesanan',
+            text: 'Silakan isi nomor pesanan sebelum melacak.',
+            confirmButtonColor: '#991B1B'
+        });
+        return;
+    }
+    window.location.href = '{{ url('/order/track') }}/' + encodeURIComponent(orderId);
+});
 
 document.getElementById('orderForm').addEventListener('submit', function(e) {
     if (Object.keys(cart).length === 0) {

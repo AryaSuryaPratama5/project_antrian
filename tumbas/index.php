@@ -425,7 +425,7 @@ foreach ($categories as $cat => $catLabel):
          data-nama="<?= strtolower(htmlspecialchars($m['nama_item'])) ?>">
 
         <div class="card-main">
-            <img src="img/<?= htmlspecialchars($m['gambar']) ?>"
+            <img src="../img/<?= htmlspecialchars($m['gambar']) ?>"
                  class="menu-img"
                  onerror="this.src='https://placehold.co/74x74/f5ede8/E8603C?text=🍽️'">
 

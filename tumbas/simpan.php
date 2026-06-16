@@ -67,6 +67,10 @@ $sql = "INSERT INTO pesanan
 
 if (mysqli_query($conn, $sql)) {
     $new_id = mysqli_insert_id($conn);
+    if ($metode === 'QRIS' || $metode === 'Transfer') {
+        header("Location: ./bayar_qris.php?id=$new_id&total=$total");
+        exit;
+    }
     header("Location: tracking.php?id=$new_id");
     exit;
 } else {
